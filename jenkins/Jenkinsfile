@@ -1,0 +1,33 @@
+pipeline {
+  agent none
+  options {
+    ansiColor('xterm')
+  }
+  stages {
+    stage("Init title") {
+      when {
+        changeRequest()
+        beforeAgent true
+      }
+      steps {
+        script {
+          currentBuild.displayName = "PR ${env.CHANGE_ID}: ${env.CHANGE_TITLE}"
+        }
+      }
+    }
+    stage('Build Solidity') {
+      agent {
+        dockerfile { dir "jenkins" }
+      }
+      when {
+        changeRequest()
+        beforeAgent true
+      }
+      steps {
+        sh '''
+          make solc-compile
+        '''
+      }
+    }
+  }
+}
