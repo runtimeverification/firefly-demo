@@ -13,3 +13,5 @@ RUN    apt-get update                                                         \
 RUN    add-apt-repository ppa:ethereum/ethereum \
     && apt-get update                           \
     && apt-get install solc
+
+USER user:user
