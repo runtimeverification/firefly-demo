@@ -1,8 +1,4 @@
-FROM ubuntu:bionic
-
-ENV TZ=America/Chicago
-RUN    ln --symbolic --no-dereference --force /usr/share/zoneinfo/$TZ /etc/localtime \
-    && echo $TZ > /etc/timezone
+FROM runtimeverificationinc/ubuntu:bionic
 
 RUN    apt-get update                                                  \
     && apt-get upgrade --yes                                           \
@@ -16,8 +12,4 @@ RUN    add-apt-repository ppa:ethereum/ethereum \
     && apt-get update                           \
     && apt-get install --yes solc
 
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-RUN    groupadd -g $GROUP_ID user                                                \
-    && useradd --create-home --uid $USER_ID --shell /bin/sh --gid $GROUP_ID user \
-    && echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+USER user:user
