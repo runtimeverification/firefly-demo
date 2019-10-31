@@ -10,6 +10,6 @@ RUN    apt-get update                                                         \
         protobuf-compiler python3 python-pygments python-recommonmark         \
         python-sphinx time zlib1g-dev netcat-openbsd rapidjson-dev
 
-RUN    sudo add-apt-repository ppa:ethereum/ethereum \
-    && sudo apt-get update                           \
-    && sudo apt-get install solc
+RUN    add-apt-repository ppa:ethereum/ethereum \
+    && apt-get update                           \
+    && apt-get install solc
