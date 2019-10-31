@@ -24,8 +24,9 @@ case "$distro" in
 esac
 
 download_url="$download_url_base/$download_version/$download_pkg_name"
-curl --output "$download_pkg_name" "$download_url"
+notif "Downloading: $download_url"
+curl --location --output "$download_pkg_name" "$download_url"
 
 case "$distro" in
-    @(ubuntu-bionic|debian-buster) ) sudo apt-get install "$download_pkg_name"
+    @(ubuntu-bionic|debian-buster) ) sudo apt-get install --yes "./$download_pkg_name"
 esac

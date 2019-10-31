@@ -15,7 +15,7 @@ pipeline {
         }
       }
     }
-    stage('Build Solidity') {
+    stage('Build and Test') {
       agent {
         dockerfile { dir "jenkins" }
       }
@@ -23,10 +23,22 @@ pipeline {
         changeRequest()
         beforeAgent true
       }
-      steps {
-        sh '''
-          make solc-compile
-        '''
+      stages {
+        stage('Build Solidity') {
+          steps {
+            sh '''
+              make solc-compile
+            '''
+          }
+        }
+        stage('Install Firefly') {
+          steps {
+            sh '''
+              sudo apt-get update && sudo apt-get upgrade --yes
+              ./install-firefly.sh ubuntu-bionic
+            '''
+          }
+        }
       }
     }
   }
