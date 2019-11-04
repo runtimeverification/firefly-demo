@@ -39,6 +39,13 @@ pipeline {
             '''
           }
         }
+        stage('Run Firefly') {
+          steps {
+            sh '''
+              ./run-firefly.sh
+            '''
+          }
+        }
       }
     }
   }
