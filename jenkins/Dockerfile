@@ -4,6 +4,7 @@ RUN    apt-get update              \
     && apt-get upgrade --yes       \
     && apt-get install --yes       \
         curl                       \
+        g++                        \
         gcc                        \
         git                        \
         make                       \
