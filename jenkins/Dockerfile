@@ -9,6 +9,7 @@ RUN    apt-get update              \
         git                        \
         make                       \
         netcat-openbsd             \
+        protobuf-compiler          \
         software-properties-common
 
 RUN    add-apt-repository ppa:ethereum/ethereum \
