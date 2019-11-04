@@ -4,6 +4,7 @@ RUN    apt-get update              \
     && apt-get upgrade --yes       \
     && apt-get install --yes       \
         curl                       \
+        gcc                        \
         git                        \
         make                       \
         software-properties-common
