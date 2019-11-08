@@ -1,32 +1,19 @@
 #!/usr/bin/env bash
 
-set -ueo pipefail
-shopt -s extglob
+set -e
 
-notif() {
-    echo "== $0: $@" 2>&1
-}
+REPO_DIR=evm-semantics
+INSTALL_PREFIX=/usr/local/bin
 
-fatal() {
-    notif "$@"
-    exit 1
-}
+if ! [ -d "$REPO_DIR" ]; then
+    git clone https://github.com/kframework/evm-semantics.git "$REPO_DIR"
+fi
 
-distro="$1" ; shift
+cd "$REPO_DIR"
 
-download_url_base='https://github.com/kframework/evm-semantics/releases/download'
-download_version='v1.0.0-3cecbb6'
+make deps
+make build-web3
+make build-node
 
-case "$distro" in
-    ubuntu-bionic ) download_pkg_name='kevm_1.0.0_amd64_bionic.deb' ;;
-    debian-buster ) download_pkg_name='kevm_1.0.0_amd64_buster.deb' ;;
-    *             ) fatal "Unknown distro: $distro"                 ;;
-esac
-
-download_url="$download_url_base/$download_version/$download_pkg_name"
-notif "Downloading: $download_url"
-curl --location --output "$download_pkg_name" "$download_url"
-
-case "$distro" in
-    @(ubuntu-bionic|debian-buster) ) sudo apt-get install --yes "./$download_pkg_name"
-esac
+sudo cp .build/defn/vm/kevm-vm "$INSTALL_PREFIX/kevm-vm"
+sudo cp .build/defn/web3/build/kevm-client "$INSTALL_PREFIX/kevm-client"
