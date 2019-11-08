@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 notif () {
     echo "== $0: $@" 2>&1

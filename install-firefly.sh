@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 REPO_DIR=evm-semantics
 INSTALL_PREFIX=/usr/local/bin
