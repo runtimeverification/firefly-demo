@@ -24,7 +24,6 @@ cd ..
 
 #launch kevm server
 PORT=8545
-cd build
 cd evm-semantics
 ./kevm web3-ganache "$PORT" --shutdownable &
 kevm_client_pid="$!"
