@@ -9,7 +9,7 @@ curl http://firefly-test.cvlad.info/script?firefly_token="jwC5UPsxlne4dwn4hnMIAh
 mkdir build
 cd build
 git clone https://github.com/kframework/evm-semantics.git
-cd evm_semantics
+cd evm-semantics
 make deps
 make build-web3
 cd ..
