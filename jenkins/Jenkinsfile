@@ -56,6 +56,7 @@ pipeline {
           }
         }
         stage('Run Firefly demo') {
+          options { timeout(time: 35, unit: 'MINUTES') }
           steps {
             sh '''
               ./firefly-demo.sh
