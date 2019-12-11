@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # contact Web API and download runner
-curl http://firefly-test.cvlad.info/script?firefly_token="jwC5UPsxlne4dwn4hnMIAhP605IghavpD+6UOmgSL7E=" | sh
+curl http://firefly-test.cvlad.info/script?firefly_token="NVdnOFRscE5BWWFRRXZmVnA1bTVFc09RZXJGNkxqZnJkQVQ4bHljWHZRdz0=" | sh
 
 # install evm-semantics
 mkdir build
@@ -46,6 +46,6 @@ timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
 # post the report
-curl -X POST -F 'access-token="jwC5UPsxlne4dwn4hnMIAhP605IghavpD+6UOmgSL7E="' -F 'status=pass' -F 'file=@report.txt' http://firefly-test.cvlad.info/report
+curl -X POST -F 'access-token="NVdnOFRscE5BWWFRRXZmVnA1bTVFc09RZXJGNkxqZnJkQVQ4bHljWHZRdz0="' -F 'status=pass' -F 'file=@report.txt' http://firefly-test.cvlad.info/report
 
 
