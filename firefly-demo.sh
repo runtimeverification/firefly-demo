@@ -47,4 +47,4 @@ timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
 # post the report
-curl -X POST -F "'access-token=""$FIREFLY_TOKEN'" -F 'status=pass' -F 'file=@report.txt' http://firefly-test.cvlad.info/report
+curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' http://firefly-test.cvlad.info/report
