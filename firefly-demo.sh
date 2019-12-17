@@ -2,8 +2,9 @@
 
 set -euo pipefail
 
-FIREFLY_TOKEN="dmUwcVRISlEyY2tFUnl4MVJQcDZLWU5BNjRxYis3OW43anlOOE43MW5kaz0="
+export FIREFLY_TOKEN="dmUwcVRISlEyY2tFUnl4MVJQcDZLWU5BNjRxYis3OW43anlOOE43MW5kaz0="
 
+echo $FIREFLY_TOKEN
 # contact Web API and download runner
 curl http://firefly-test.cvlad.info/script?firefly_token="$FIREFLY_TOKEN" | sh
 
@@ -48,5 +49,3 @@ cd ..
 
 # post the report
 curl -X POST -F "'access-token=""$FIREFLY_TOKEN'" -F 'status=pass' -F 'file=@report.txt' http://firefly-test.cvlad.info/report
-
-
