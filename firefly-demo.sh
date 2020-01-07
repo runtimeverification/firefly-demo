@@ -37,6 +37,10 @@ while (! netcat -z 127.0.0.1 "$PORT") ; do sleep 0.1; done
 node_modules/.bin/truffle test test/token/ERC20/ERC20Detailed.test.js &> ../report.txt
 cd ..
 
+#generate coverage data
+cd evm-semantics
+./kevm web3-send "$PORT" 'firefly_getCoverageData' &> ../coverage.json
+
 #close kevm
 cd evm-semantics
 ./kevm web3-send "$PORT" 'firefly_shutdown'
@@ -46,5 +50,5 @@ pkill -P "$kevm_client_pid" kevm-client              || true
 timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
-# post the report
-curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' http://firefly-test.cvlad.info/report
+# post the reports
+curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' http://firefly-test.cvlad.info/report
