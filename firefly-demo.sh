@@ -40,6 +40,7 @@ cd ..
 #generate coverage data
 cd evm-semantics
 ./kevm web3-send "$PORT" 'firefly_getCoverageData' &> ../coverage.json
+cd ..
 
 #close kevm
 cd evm-semantics
