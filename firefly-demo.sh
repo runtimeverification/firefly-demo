@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="FireflyDemoRepo17Jan"
+export FIREFLY_TOKEN="Mm5UZTNSOW1pY1krMDlJREw1QmpsOU56OEJWSlBjbGUxaHlpbzcrWmw5ST0="
 
 # contact Web API and download runner
 curl http://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
