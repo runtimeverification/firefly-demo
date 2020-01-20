@@ -35,24 +35,8 @@ pipeline {
           steps {
             sh '''
               sudo apt-get update && sudo apt-get upgrade --yes
-              ./install-firefly.sh
-            '''
-          }
-        }
-        stage('Run Firefly') {
-          options { timeout(time: 35, unit: 'MINUTES') }
-          steps {
-            sh '''
-              ./run-firefly.sh
-            '''
-          }
-        }
-        stage('Run Firefly demo') {
-          options { timeout(time: 60, unit: 'MINUTES') }
-          steps {
-            sh '''
               ./firefly-demo.sh
-             '''
+            '''
           }
         }
       }
