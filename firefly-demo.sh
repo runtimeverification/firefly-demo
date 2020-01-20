@@ -5,7 +5,7 @@ set -euo pipefail
 export FIREFLY_TOKEN="Mm5UZTNSOW1pY1krMDlJREw1QmpsOU56OEJWSlBjbGUxaHlpbzcrWmw5ST0="
 
 # contact Web API and download runner
-curl http://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
+curl https://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
 
 # install evm-semantics
 mkdir build
@@ -52,4 +52,4 @@ timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
 # post the reports
-curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' http://sandbox.fireflyblockchain.com/report
+curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' https://sandbox.fireflyblockchain.com/report
