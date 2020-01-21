@@ -22,6 +22,9 @@ cd openzeppelin-contracts
 git checkout b8c8308d77beaa733104d1d66ec5f2962df81711
 npm install
 node_modules/.bin/truffle compile
+
+# fetch compiled build data
+zip ../compiled.zip -r build/
 cd ..
 
 #launch kevm server
@@ -52,4 +55,4 @@ timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
 # post the reports
-curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' https://sandbox.fireflyblockchain.com/report
+curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report

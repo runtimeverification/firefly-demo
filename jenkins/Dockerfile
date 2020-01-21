@@ -58,6 +58,7 @@ RUN    apt-get update                  \
             time                       \
             unzip                      \
             wget                       \
+            zip                        \
             zlib1g-dev
 
 RUN    git clone 'https://github.com/z3prover/z3' --branch=z3-4.6.0 \
