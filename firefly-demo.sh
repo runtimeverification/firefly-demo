@@ -19,7 +19,7 @@ cd ..
 # install openzeppelin-contracts
 git clone 'https://github.com/OpenZeppelin/openzeppelin-contracts'
 cd openzeppelin-contracts
-git checkout 49042f2b1ae76eb9befa12000b98211981a139ec
+git checkout b8c8308d77beaa733104d1d66ec5f2962df81711
 npm install
 node_modules/.bin/truffle compile
 cd ..
