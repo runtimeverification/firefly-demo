@@ -31,28 +31,13 @@ pipeline {
             '''
           }
         }
-        stage('Install Firefly') {
-          steps {
-            sh '''
-              sudo apt-get update && sudo apt-get upgrade --yes
-              ./install-firefly.sh
-            '''
-          }
-        }
-        stage('Run Firefly') {
-          options { timeout(time: 35, unit: 'MINUTES') }
-          steps {
-            sh '''
-              ./run-firefly.sh
-            '''
-          }
-        }
-        stage('Run Firefly demo') {
+        stage('Run Firefly Demo') {
           options { timeout(time: 60, unit: 'MINUTES') }
           steps {
             sh '''
+              sudo apt-get update && sudo apt-get upgrade --yes
               ./firefly-demo.sh
-             '''
+            '''
           }
         }
       }

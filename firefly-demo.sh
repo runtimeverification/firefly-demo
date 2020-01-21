@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="dmUwcVRISlEyY2tFUnl4MVJQcDZLWU5BNjRxYis3OW43anlOOE43MW5kaz0="
+export FIREFLY_TOKEN="Mm5UZTNSOW1pY1krMDlJREw1QmpsOU56OEJWSlBjbGUxaHlpbzcrWmw5ST0="
 
 # contact Web API and download runner
-curl http://firefly-test.cvlad.info/script?firefly_token="$FIREFLY_TOKEN" | sh
+curl https://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
 
 # install evm-semantics
 mkdir build
@@ -19,7 +19,7 @@ cd ..
 # install openzeppelin-contracts
 git clone 'https://github.com/OpenZeppelin/openzeppelin-contracts'
 cd openzeppelin-contracts
-git checkout 49042f2b1ae76eb9befa12000b98211981a139ec
+git checkout b8c8308d77beaa733104d1d66ec5f2962df81711
 npm install
 node_modules/.bin/truffle compile
 cd ..
@@ -52,4 +52,4 @@ timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
 # post the reports
-curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' http://firefly-test.cvlad.info/report
+curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' https://sandbox.fireflyblockchain.com/report
