@@ -54,8 +54,6 @@ zlib1g-dev
 ```
 
 ```
-mkdir build
-cd build
 git clone https://github.com/kframework/evm-semantics.git
 cd evm-semantics
 make deps
@@ -90,5 +88,5 @@ cd ..
 
 Send the gathered data to the Firefly server
 ```
-curl -X POST -F access-token="{YOUR_ACCESS_TOKEN}" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report
+curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report
 ```

@@ -27,12 +27,15 @@ RUN    apt-get update                  \
             make                       \
             maven                      \
             netcat-openbsd             \
+            opam                       \
             openjdk-11-jdk             \
             pandoc                     \
             pkg-config                 \
             python3                    \
             rapidjson-dev              \
+            software-properties-common \
             time                       \
+            zip                        \
             zlib1g-dev
 
 RUN    git clone 'https://github.com/z3prover/z3' --branch=z3-4.6.0 \
