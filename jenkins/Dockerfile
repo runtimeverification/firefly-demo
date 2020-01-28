@@ -10,6 +10,7 @@ RUN    apt-get update                  \
             curl                       \
             flex                       \
             gcc                        \
+            git                        \
             jq                         \
             libboost-test-dev          \
             libcrypto++-dev            \
