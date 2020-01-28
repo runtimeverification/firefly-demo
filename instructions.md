@@ -27,11 +27,9 @@ autoconf
 bison
 clang-8
 cmake
-curl
 flex
 gcc
 git
-jq
 libboost-test-dev
 libcrypto++-dev
 libffi-dev
@@ -47,7 +45,6 @@ lld-8
 llvm-8-tools
 make
 maven
-netcat-openbsd
 openjdk-11-jdk
 pandoc
 pkg-config

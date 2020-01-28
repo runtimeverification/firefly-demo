@@ -7,11 +7,9 @@ RUN    apt-get update                  \
             bison                      \
             clang-8                    \
             cmake                      \
-            curl                       \
             flex                       \
             gcc                        \
             git                        \
-            jq                         \
             libboost-test-dev          \
             libcrypto++-dev            \
             libffi-dev                 \
@@ -27,7 +25,6 @@ RUN    apt-get update                  \
             llvm-8-tools               \
             make                       \
             maven                      \
-            netcat-openbsd             \
             openjdk-11-jdk             \
             pandoc                     \
             pkg-config                 \
