@@ -27,7 +27,6 @@ RUN    apt-get update                  \
             make                       \
             maven                      \
             netcat-openbsd             \
-            opam                       \
             openjdk-11-jdk             \
             pandoc                     \
             pkg-config                 \
