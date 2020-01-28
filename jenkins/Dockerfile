@@ -34,7 +34,6 @@ RUN    apt-get update                  \
             python3                    \
             rapidjson-dev              \
             software-properties-common \
-            time                       \
             zip                        \
             zlib1g-dev
 

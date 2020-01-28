@@ -30,6 +30,7 @@ cmake
 curl
 flex
 gcc
+git
 jq
 libboost-test-dev
 libcrypto++-dev
@@ -47,14 +48,12 @@ llvm-8-tools
 make
 maven
 netcat-openbsd
-opam
 openjdk-11-jdk
 pandoc
 pkg-config
 python3
 rapidjson-dev
 software-properties-common
-time
 zip
 zlib1g-dev
 ```
