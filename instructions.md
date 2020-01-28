@@ -3,14 +3,17 @@
  - Go to sandbox.fireflyblockchain.com
  - At the top right, click on "login"
  - At the Github OAuth screen, click on the "Authorize rv-jenkins" button
+
 ![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/1authorize.png)
 
 ## Set up an access token
 
  - After being redirected, go to the "Products" drop-down in the top right and click on "test runner"
+
 ![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/2testrunner.png)
  - Click on the "install now" button at the new page
  - Type in a name for your new token and click on "create"
+
 ![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/3createtoken.png)
  - Save the token for later
 
@@ -93,3 +96,10 @@ Send the gathered data to the Firefly server
 ```
 curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report
 ```
+
+## View the report
+ - Go back to sandbox.fireflyblockchain.com
+ - In the upper right corner click on "Dashboard"
+ - You will be shown a list of reports that have come back from CI. You can click on "Coverage" to view the coverage report
+
+![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/4coverage.png)
