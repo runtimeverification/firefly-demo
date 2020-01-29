@@ -27,6 +27,7 @@ autoconf
 bison
 clang-8
 cmake
+curl
 flex
 gcc
 git

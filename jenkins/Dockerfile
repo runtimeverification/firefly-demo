@@ -7,6 +7,7 @@ RUN    apt-get update                  \
             bison                      \
             clang-8                    \
             cmake                      \
+            curl                       \
             flex                       \
             gcc                        \
             git                        \
