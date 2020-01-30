@@ -5,40 +5,21 @@ pipeline {
   }
   stages {
     stage("Init title") {
-      when {
-        changeRequest()
-        beforeAgent true
-      }
+      when { changeRequest() }
       steps {
         script {
           currentBuild.displayName = "PR ${env.CHANGE_ID}: ${env.CHANGE_TITLE}"
         }
       }
     }
-    stage('Build and Test') {
-      agent {
-        dockerfile { dir "jenkins" }
-      }
-      when {
-        changeRequest()
-        beforeAgent true
-      }
-      stages {
-        stage('Build Solidity') {
-          steps {
-            sh '''
-              make solc-compile
-            '''
-          }
-        }
-        stage('Run Firefly Demo') {
-          options { timeout(time: 60, unit: 'MINUTES') }
-          steps {
-            sh '''
-              ./firefly-demo.sh
-            '''
-          }
-        }
+    stage('Run Firefly Demo') {
+      agent { dockerfile { dir "jenkins" } }
+      when { changeRequest() }
+      options { timeout(time: 60, unit: 'MINUTES') }
+      steps {
+        sh '''
+          ./firefly-demo.sh
+        '''
       }
     }
   }
