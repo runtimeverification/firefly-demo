@@ -37,11 +37,6 @@ cd ..
 # close kevm (optional)
 cd evm-semantics
 ./kevm web3-send "$PORT" 'firefly_shutdown'
-echo
-timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
-pkill -P "$kevm_client_pid" kevm-client              || true
-timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
-cd ..
 
 # post the reports
 curl -X POST -F access-token="$FIREFLY_TOKEN"                                        \
