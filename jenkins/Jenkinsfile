@@ -35,7 +35,6 @@ pipeline {
           options { timeout(time: 60, unit: 'MINUTES') }
           steps {
             sh '''
-              sudo apt-get update && sudo apt-get upgrade --yes
               ./firefly-demo.sh
             '''
           }
