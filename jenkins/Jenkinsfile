@@ -12,14 +12,28 @@ pipeline {
         }
       }
     }
-    stage('Run Firefly Demo') {
+    stage('Build and Test') {
       agent { dockerfile { dir "jenkins" } }
       when { changeRequest() }
-      options { timeout(time: 60, unit: 'MINUTES') }
-      steps {
-        sh '''
-          ./firefly-demo.sh
-        '''
+      stages {
+        stage('Build Firefly') {
+          agent { dockerfile { dir "jenkins" } }
+          when { changeRequest() }
+          options { timeout(time: 5, unit: 'MINUTES') }
+          steps {
+            sh '''
+              ./firefly-setup.sh
+            '''
+          }
+        }
+        stage('Run Firefly') {
+          options { timeout(time: 5, unit: 'MINUTES') }
+          steps {
+            sh '''
+              ./firefly-run.sh
+            '''
+          }
+        }
       }
     }
   }
