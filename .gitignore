@@ -1,5 +1,4 @@
-/solidity/*/*.evm
-/*.deb
 /evm-semantics
 /k
 /k.tar.gz
+/openzeppelin-contracts
