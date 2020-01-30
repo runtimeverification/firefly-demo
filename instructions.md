@@ -84,8 +84,8 @@ sudo apt-get install --yes solc
 Install `nodejs` (>= 10.0.0):
 
 ```sh
-curl -sL https://deb.nodesource.com/setup_10.x | bash -
-apt-get install --yes nodejs
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+sudo apt-get install --yes nodejs
 ```
 
 ## Build Firefly
