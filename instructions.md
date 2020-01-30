@@ -19,63 +19,100 @@
 
 -   Save the token for later
 
-## Set up CI
+## Set up CI Dependencies
 
-In your CI script, have a stage that does the following:
+Install system dependencies:
 
-Install the Firefly client. The following dependencies must be installed for Ubuntu:
+```sh
+sudo apt install --yes             \
+        autoconf                   \
+        bison                      \
+        clang-8                    \
+        cmake                      \
+        curl                       \
+        flex                       \
+        gcc                        \
+        git                        \
+        jq                         \
+        libboost-test-dev          \
+        libcrypto++-dev            \
+        libffi-dev                 \
+        libgflags-dev              \
+        libjemalloc-dev            \
+        libmpfr-dev                \
+        libprocps-dev              \
+        libsecp256k1-dev           \
+        libssl-dev                 \
+        libtool                    \
+        libyaml-dev                \
+        lld-8                      \
+        llvm-8-tools               \
+        make                       \
+        maven                      \
+        netcat-openbsd             \
+        openjdk-11-jdk             \
+        pandoc                     \
+        pkg-config                 \
+        python3                    \
+        rapidjson-dev              \
+        software-properties-common \
+        zip                        \
+        zlib1g-dev
+```
+
+Install `z3` (>= 4.6.0):
+
+```sh
+git clone 'https://github.com/z3prover/z3' --branch=z3-4.6.0
+cd z3
+python scripts/mk_make.py
+cd build
+make -j8
+sudo make install
+cd ../..
+rm -rf z3
+```
+
+Install `solc`:
+
+```sh
+sudo add-apt-repository ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install --yes solc
+```
+
+Install `nodejs` (>= 10.0.0):
+
+```sh
+curl -sL https://deb.nodesource.com/setup_10.x | bash -
+apt-get install --yes nodejs
+```
+
+## Build Firefly
+
+As part of your CI job, make sure to clone and build Firefly:
 
 ```
-autoconf
-bison
-clang-8
-cmake
-curl
-flex
-gcc
-git
-jq
-libboost-test-dev
-libcrypto++-dev
-libffi-dev
-libgflags-dev
-libjemalloc-dev
-libmpfr-dev
-libprocps-dev
-libsecp256k1-dev
-libssl-dev
-libtool
-libyaml-dev
-lld-8
-llvm-8-tools
-make
-maven
-netcat-openbsd
-openjdk-11-jdk
-pandoc
-pkg-config
-python3
-rapidjson-dev
-software-properties-common
-zip
-zlib1g-dev
-```
+curl --location --output k.tar.gz 'https://github.com/kframework/k/releases/download/v5.0.0-9985955/k-nightly.tar.gz'
+tar --verbose --extract --file k.tar.gz
+export K_RELEASE=$(pwd)/k
 
-```
 git clone https://github.com/kframework/evm-semantics.git
 cd evm-semantics
-make deps
 make build-web3
 cd ..
 ```
 
-Zip up your compiled Solidity contracts (They exist under the `build` directory in this example)
+## Run Firefly
+
+Zip up your compiled Solidity contracts.
+They exist under the `build` directory in this example (where `truffle compile` places them).
 
 ```
 zip compiled.zip -r build/
 ```
 
-Launch the Firefly client (we use port 8545 in this example)
+Launch the Firefly client (we use port 8545 in this example):
 
 ```
 cd evm-semantics
@@ -83,13 +120,13 @@ cd evm-semantics
 cd ..
 ```
 
-Run the test suite that will talk to the Firefly client (ie. Truffle). Save the output.
+Run the test suite that will talk to the Firefly client (ie. Truffle), saving the output:
 
 ```
 truffle test &> results.txt
 ```
 
-Retrieve the coverage data from Firefly and then close the client.
+Retrieve the coverage data from Firefly and then close the client:
 
 ```
 cd evm-semantics
@@ -98,10 +135,14 @@ cd evm-semantics
 cd ..
 ```
 
-Send the gathered data to the Firefly server
+Upload gathered data to the Firefly server for post-processing:
 
 ```
-curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report
+curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>"                                   \
+             -F 'status=pass'                                                        \
+             -F 'file=@report.txt'                                                   \
+             -F 'file2=@coverage.json'                                               \
+             -F 'file3=@compiled.zip' 'https://sandbox.fireflyblockchain.com/report'
 ```
 
 ## View the report
