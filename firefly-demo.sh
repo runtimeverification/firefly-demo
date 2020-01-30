@@ -4,15 +4,17 @@ set -euo pipefail
 
 export FIREFLY_TOKEN="U052ZEQvZjVpZ0lQbjd1R1NlNFJpZGNTbVppbVFFSng4RWhOclpaTVk2RT0="
 
+# Eventually this is how we'll do it, currently unused.
 # contact Web API and download runner
-curl https://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
+# curl https://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
+
+curl --location --output k.tar.gz 'https://github.com/kframework/k/releases/download/v5.0.0-9985955/k-nightly.tar.gz'
+tar --verbose --extract --file k.tar.gz
+export K_RELEASE=$(pwd)/k
 
 # install evm-semantics
-mkdir build
-cd build
 git clone https://github.com/kframework/evm-semantics.git
 cd evm-semantics
-make deps
 make build-web3
 cd ..
 
