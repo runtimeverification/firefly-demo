@@ -1,27 +1,30 @@
 ## Authorize Github
 
- - Go to sandbox.fireflyblockchain.com
- - At the top right, click on "login"
- - At the Github OAuth screen, click on the "Authorize rv-jenkins" button
+-   Go to sandbox.fireflyblockchain.com
+-   At the top right, click on "login"
+-   At the Github OAuth screen, click on the "Authorize rv-jenkins" button
 
-![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/1authorize.png)
+![](img/1authorize.png)
 
 ## Set up an access token
 
- - After being redirected, go to the "Products" drop-down in the top right and click on "test runner"
+-   After being redirected, go to the "Products" drop-down in the top right and click on "test runner"
 
-![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/2testrunner.png)
- - Click on the "install now" button at the new page
- - Type in a name for your new token and click on "create"
+![](img/2testrunner.png)
 
-![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/3createtoken.png)
- - Save the token for later
+-   Click on the "install now" button at the new page
+-   Type in a name for your new token and click on "create"
+
+![](img/3createtoken.png)
+
+-   Save the token for later
 
 ## Set up CI
 
 In your CI script, have a stage that does the following:
 
 Install the Firefly client. The following dependencies must be installed for Ubuntu:
+
 ```
 autoconf
 bison
@@ -67,11 +70,13 @@ cd ..
 ```
 
 Zip up your compiled Solidity contracts (They exist under the `build` directory in this example)
+
 ```
 zip compiled.zip -r build/
 ```
 
 Launch the Firefly client (we use port 8545 in this example)
+
 ```
 cd evm-semantics
 ./kevm web3-ganache 8545 --shutdownable &
@@ -79,11 +84,13 @@ cd ..
 ```
 
 Run the test suite that will talk to the Firefly client (ie. Truffle). Save the output.
+
 ```
 truffle test &> results.txt
 ```
 
 Retrieve the coverage data from Firefly and then close the client.
+
 ```
 cd evm-semantics
 ./kevm web3-send 8545 firefly_getCoverageData &> ../coverage.json
@@ -92,13 +99,15 @@ cd ..
 ```
 
 Send the gathered data to the Firefly server
+
 ```
 curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report
 ```
 
 ## View the report
- - Go back to sandbox.fireflyblockchain.com
- - In the upper right corner click on "Dashboard"
- - You will be shown a list of reports that have come back from CI. You can click on "Coverage" to view the coverage report
 
-![](https://raw.githubusercontent.com/runtimeverification/firefly-demo/guy_doc/img/4coverage.png)
+-   Go back to sandbox.fireflyblockchain.com
+-   In the upper right corner click on "Dashboard"
+-   You will be shown a list of reports that have come back from CI. You can click on "Coverage" to view the coverage report
+
+![](img/4coverage.png)
