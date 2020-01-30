@@ -17,8 +17,6 @@ pipeline {
       when { changeRequest() }
       stages {
         stage('Build Firefly') {
-          agent { dockerfile { dir "jenkins" } }
-          when { changeRequest() }
           options { timeout(time: 5, unit: 'MINUTES') }
           steps {
             sh '''
