@@ -92,7 +92,7 @@ apt-get install --yes nodejs
 
 As part of your CI job, make sure to clone and build Firefly:
 
-```
+```sh
 curl --location --output k.tar.gz 'https://github.com/kframework/k/releases/download/v5.0.0-9985955/k-nightly.tar.gz'
 tar --verbose --extract --file k.tar.gz
 export K_RELEASE=$(pwd)/k
@@ -109,13 +109,14 @@ cd ..
 Zip up your compiled Solidity contracts.
 They exist under the `build` directory in this example (where `truffle compile` places them).
 
-```
+```sh
+truffle compile
 zip compiled.zip -r build/
 ```
 
 Launch the Firefly client (we use port 8545 in this example):
 
-```
+```sh
 cd evm-semantics
 ./kevm web3-ganache 8545 --shutdownable &
 cd ..
@@ -123,13 +124,13 @@ cd ..
 
 Run the test suite that will talk to the Firefly client (ie. Truffle), saving the output:
 
-```
+```sh
 truffle test &> results.txt
 ```
 
 Retrieve the coverage data from Firefly and then close the client:
 
-```
+```sh
 cd evm-semantics
 ./kevm web3-send 8545 firefly_getCoverageData &> ../coverage.json
 ./kevm web3-send 8545 firefly_shutdown
@@ -138,7 +139,7 @@ cd ..
 
 Upload gathered data to the Firefly server for post-processing:
 
-```
+```sh
 curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>"                                   \
              -F 'status=pass'                                                        \
              -F 'file=@report.txt'                                                   \
