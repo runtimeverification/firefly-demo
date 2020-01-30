@@ -15,6 +15,7 @@ export K_RELEASE=$(pwd)/k
 # install evm-semantics
 git clone https://github.com/kframework/evm-semantics.git
 cd evm-semantics
+git submodule update --init --recursive -- deps/plugin
 make build-web3
 cd ..
 
