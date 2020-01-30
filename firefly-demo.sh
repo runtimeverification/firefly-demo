@@ -38,6 +38,7 @@ cd ..
 cd openzeppelin-contracts
 while (! netcat -z 127.0.0.1 "$PORT") ; do sleep 0.1; done
 node_modules/.bin/truffle test test/token/ERC20/ERC20Detailed.test.js &> ../report.txt
+node_modules/.bin/truffle test test/token/ERC20/ERC20Mintable.test.js &>> ../report.txt
 cd ..
 
 #generate coverage data
