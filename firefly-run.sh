@@ -37,6 +37,7 @@ cd ..
 # close kevm (optional)
 cd evm-semantics
 ./kevm web3-send "$PORT" 'firefly_shutdown'
+cd ..
 
 # post the reports
 curl -X POST -F access-token="$FIREFLY_TOKEN"                                        \
