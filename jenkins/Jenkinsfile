@@ -5,10 +5,7 @@ pipeline {
   }
   stages {
     stage("Init title") {
-      when {
-        changeRequest()
-        beforeAgent true
-      }
+      when { changeRequest() }
       steps {
         script {
           currentBuild.displayName = "PR ${env.CHANGE_ID}: ${env.CHANGE_TITLE}"
@@ -16,27 +13,22 @@ pipeline {
       }
     }
     stage('Build and Test') {
-      agent {
-        dockerfile { dir "jenkins" }
-      }
-      when {
-        changeRequest()
-        beforeAgent true
-      }
+      agent { dockerfile { dir "jenkins" } }
+      when { changeRequest() }
       stages {
-        stage('Build Solidity') {
+        stage('Build Firefly') {
+          options { timeout(time: 10, unit: 'MINUTES') }
           steps {
             sh '''
-              make solc-compile
+              ./firefly-setup.sh
             '''
           }
         }
-        stage('Run Firefly Demo') {
-          options { timeout(time: 60, unit: 'MINUTES') }
+        stage('Run Firefly') {
+          options { timeout(time: 10, unit: 'MINUTES') }
           steps {
             sh '''
-              sudo apt-get update && sudo apt-get upgrade --yes
-              ./firefly-demo.sh
+              ./firefly-run.sh
             '''
           }
         }

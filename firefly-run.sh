@@ -4,18 +4,6 @@ set -euo pipefail
 
 export FIREFLY_TOKEN="U052ZEQvZjVpZ0lQbjd1R1NlNFJpZGNTbVppbVFFSng4RWhOclpaTVk2RT0="
 
-# contact Web API and download runner
-curl https://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
-
-# install evm-semantics
-mkdir build
-cd build
-git clone https://github.com/kframework/evm-semantics.git
-cd evm-semantics
-make deps
-make build-web3
-cd ..
-
 # install openzeppelin-contracts
 git clone 'https://github.com/OpenZeppelin/openzeppelin-contracts'
 cd openzeppelin-contracts
@@ -27,33 +15,33 @@ node_modules/.bin/truffle compile
 zip ../compiled.zip -r build/
 cd ..
 
-#launch kevm server
+# launch kevm server, wait for it to start
 PORT=8545
 cd evm-semantics
 ./kevm web3-ganache "$PORT" --shutdownable &
 kevm_client_pid="$!"
 cd ..
-
-#run ERC20Detailed.test.js through truffle
-cd openzeppelin-contracts
 while (! netcat -z 127.0.0.1 "$PORT") ; do sleep 0.1; done
+
+# run some tests through truffle
+cd openzeppelin-contracts
 node_modules/.bin/truffle test test/token/ERC20/ERC20Detailed.test.js &> ../report.txt
 node_modules/.bin/truffle test test/token/ERC20/ERC20Mintable.test.js &>> ../report.txt
 cd ..
 
-#generate coverage data
+# recover coverage data
 cd evm-semantics
 ./kevm web3-send "$PORT" 'firefly_getCoverageData' &> ../coverage.json
 cd ..
 
-#close kevm
+# close kevm (optional)
 cd evm-semantics
 ./kevm web3-send "$PORT" 'firefly_shutdown'
-echo
-timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
-pkill -P "$kevm_client_pid" kevm-client              || true
-timeout 8 tail --pid="$kevm_client_pid" -f /dev/null || true
 cd ..
 
 # post the reports
-curl -X POST -F access-token="$FIREFLY_TOKEN" -F 'status=pass' -F 'file=@report.txt' -F 'file2=@coverage.json' -F 'file3=@compiled.zip' https://sandbox.fireflyblockchain.com/report
+curl -X POST -F access-token="$FIREFLY_TOKEN"                                        \
+             -F 'status=pass'                                                        \
+             -F 'file=@report.txt'                                                   \
+             -F 'file2=@coverage.json'                                               \
+             -F 'file3=@compiled.zip' 'https://sandbox.fireflyblockchain.com/report'
