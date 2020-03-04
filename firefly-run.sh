@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="U052ZEQvZjVpZ0lQbjd1R1NlNFJpZGNTbVppbVFFSng4RWhOclpaTVk2RT0="
+export FIREFLY_TOKEN="d0w1SWlVV3R2TkpLbjU4Rzc4akFPMmVGWWtzZ1IwUVJCNVRLK1VhRnJjMD0="
 
 # install openzeppelin-contracts
 git clone 'https://github.com/OpenZeppelin/openzeppelin-contracts'
@@ -40,8 +40,12 @@ cd evm-semantics
 cd ..
 
 # post the reports
+
+commit_short=$(git rev-parse --short=7 HEAD)
+
 curl -X POST -F access-token="$FIREFLY_TOKEN"                                        \
              -F 'status=pass'                                                        \
              -F 'file=@report.txt'                                                   \
              -F 'file2=@coverage.json'                                               \
-             -F 'file3=@compiled.zip' 'https://sandbox.fireflyblockchain.com/report'
+             -F 'file3=@compiled.zip' 'https://sandbox.fireflyblockchain.com/report' \
+             -F 'commit=github://runtimeverification/firefly-demo/$commit_short'
