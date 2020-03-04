@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="d0w1SWlVV3R2TkpLbjU4Rzc4akFPMmVGWWtzZ1IwUVJCNVRLK1VhRnJjMD0="
+export FIREFLY_TOKEN="Z1MySVRjNk9kRWhlc0FaYUNoZWQvOWpRUWxCUy9keDlvWWFrdFNjQWZ3MD0="
 
 # install openzeppelin-contracts
 git clone 'https://github.com/OpenZeppelin/openzeppelin-contracts'
