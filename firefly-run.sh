@@ -44,7 +44,7 @@ cd ..
 commit_short=$(git rev-parse --short=7 HEAD)
 
 curl -X POST -F access-token="$FIREFLY_TOKEN"                                              \
-             -F 'commit=github://runtimeverification/firefly-demo/$commit_short'           \
+             -F 'commit=github://runtimeverification/firefly-demo/'$commit_short           \
              -F 'status=pass'                                                              \
              -F 'file=@report.txt'                                                         \
              -F 'file2=@coverage.json'                                                     \
