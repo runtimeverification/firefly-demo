@@ -41,7 +41,7 @@ cd ..
 
 # post the reports
 
-commit_short=$(git rev-parse --short=7 HEAD)
+commit_short=$(git rev-parse HEAD)
 
 curl -X POST -F access-token="$FIREFLY_TOKEN"                                              \
              -F 'commit=github://runtimeverification/firefly-demo/'$commit_short           \
