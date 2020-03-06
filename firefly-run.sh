@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="Z1MySVRjNk9kRWhlc0FaYUNoZWQvOWpRUWxCUy9keDlvWWFrdFNjQWZ3MD0="
+export FIREFLY_TOKEN="Yk5ac0ZtdkR3d1VWZ2diNDRadnhUc0h6UjJZZ2dmQ3Z5Mlh1U2JEbVNtUT0="
 
 # install openzeppelin-contracts
 git clone 'https://github.com/OpenZeppelin/openzeppelin-contracts'
@@ -48,4 +48,4 @@ curl -X POST -F access-token="$FIREFLY_TOKEN"                                   
              -F 'status=pass'                                                        \
              -F 'file=@report.txt'                                                   \
              -F 'file2=@coverage.json'                                               \
-             -F 'file3=@compiled.zip' 'https://sandbox.fireflyblockchain.com/report'
+             -F 'file3=@compiled.zip' 'https://pr-34.sandbox.fireflyblockchain.com/report'
