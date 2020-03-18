@@ -17,6 +17,13 @@ pipeline {
       environment { GITHUB_TOKEN = credentials('rv-jenkins') }
       when { changeRequest() }
       stages {
+        stage('Checkout Firefly') {
+          steps {
+            dir('firefly') {
+              git url: 'git@github.com:runtimeverification/firefly.git'
+            }
+          }
+        }
         stage('Build Firefly') {
           options { timeout(time: 60, unit: 'MINUTES') }
           steps {
