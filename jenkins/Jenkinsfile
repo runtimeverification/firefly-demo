@@ -1,6 +1,5 @@
 pipeline {
   agent none
-  environment { GITHUB_TOKEN = credentials('rv-jenkins') }
   options {
     ansiColor('xterm')
   }
@@ -15,6 +14,7 @@ pipeline {
     }
     stage('Build and Test') {
       agent { dockerfile { dir "jenkins" } }
+      environment { GITHUB_TOKEN = credentials('rv-jenkins') }
       when { changeRequest() }
       stages {
         stage('Build Firefly') {

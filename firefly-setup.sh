@@ -8,7 +8,7 @@ set -euo pipefail
 # curl https://sandbox.fireflyblockchain.com/script?firefly_token="$FIREFLY_TOKEN" | sh
 
 # install firefly
-git clone git@github.com:runtimeverification/firefly.git
+git clone ssh://github.com/runtimeverification/firefly.git
 cd firefly
 git submodule update --init --recursive
 make deps
