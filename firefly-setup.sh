@@ -9,7 +9,14 @@ set -euo pipefail
 
 # install firefly
 cd firefly
-git submodule update --init --recursive
+git submodule update --init deps/evm-semantics
+pushd deps/evm-semantics
+git submodule init
+git submodule deinit tests/ethereum-tests
+git submodule update --recursive
+cd deps/k
+get submodule update --init --recursive
+popd
 pushd deps/evm-semantics/deps/k
 mvn package -U -DskipTests -Dhaskell.backend.skip -Dproject.build.type=FastBuild
 popd
