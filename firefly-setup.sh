@@ -10,5 +10,7 @@ set -euo pipefail
 # install firefly
 cd firefly
 git submodule update --init --recursive
-make deps
+pushd deps/evm-semantics/deps/k
+mvn package -U -DskipTests -Dhaskell.backend.skip -Dproject.build.type=FastBuild
+popd
 make build-coverage-web3
