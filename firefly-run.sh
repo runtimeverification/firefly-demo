@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="U052ZEQvZjVpZ0lQbjd1R1NlNFJpZGNTbVppbVFFSng4RWhOclpaTVk2RT0="
+export FIREFLY_TOKEN="MCtGM1JoMlpOTXJjRzk4R29GSmR3QUxvbVVVOG9wNW4rM1ZDMnEvK2VBaz0="
 
 export KEVM_DIR=$(pwd)/firefly/deps/evm-semantics
 export KEVM_DEFN_DIR=$(pwd)/firefly/.build/defn/coverage
@@ -12,3 +12,12 @@ export PATH=$(pwd)/firefly:$PATH
 firefly prep tests/HelloWorld
 firefly launch tests/HelloWorld 8145
 firefly test tests/HelloWorld 8145
+
+cd tests/HelloWorld
+curl -X POST -f                                     \
+     -F access-token="$FIREFLY_TOKEN"               \
+     -F 'status=pass'                               \
+     -F 'file=@report.txt'                          \
+     -F 'file2=@coverage_data.zip'                  \
+     -F 'file3=@compiled.zip'                       \
+     'https://sandbox.fireflyblockchain.com/report'
