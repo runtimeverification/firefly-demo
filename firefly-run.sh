@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-export FIREFLY_TOKEN="dkJaR203YzV2N2NpNmlaNHN6MGJ5UmtYaW42clFxYnBaTVZhQzJ2SUJTND0="
+export FIREFLY_TOKEN="MCtGM1JoMlpOTXJjRzk4R29GSmR3QUxvbVVVOG9wNW4rM1ZDMnEvK2VBaz0="
 
 export KEVM_DIR=$(pwd)/firefly/deps/evm-semantics
 export KEVM_DEFN_DIR=$(pwd)/firefly/.build/defn/coverage
@@ -23,4 +23,4 @@ curl -X POST -f                                                 \
      -F 'file=@report.txt'                                      \
      -F 'file2=@coverage_data.zip'                              \
      -F 'file3=@compiled.zip'                                   \
-     'https://pr-37.sandbox.fireflyblockchain.com/report'
+     'https://sandbox.fireflyblockchain.com/report'
