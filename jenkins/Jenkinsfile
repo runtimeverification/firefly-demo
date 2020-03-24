@@ -16,8 +16,9 @@ pipeline {
       agent { dockerfile { dir "jenkins" } }
       when { changeRequest() }
       stages {
+        stage('Checkout Firefly') { steps { dir('firefly') { git url: 'git@github.com:runtimeverification/firefly.git' } } }
         stage('Build Firefly') {
-          options { timeout(time: 10, unit: 'MINUTES') }
+          options { timeout(time: 60, unit: 'MINUTES') }
           steps {
             sh '''
               ./firefly-setup.sh
@@ -25,7 +26,7 @@ pipeline {
           }
         }
         stage('Run Firefly') {
-          options { timeout(time: 10, unit: 'MINUTES') }
+          options { timeout(time: 30, unit: 'MINUTES') }
           steps {
             sh '''
               ./firefly-run.sh
