@@ -19,132 +19,57 @@
 
 -   Save the token for later
 
-## Set up CI Dependencies
+## Set up and run Firefly
 
-Install system dependencies:
+You can either install Firefly on your Ubunutu Bionic system or run it from a docker container
 
-```sh
-sudo apt install --yes             \
-        autoconf                   \
-        bison                      \
-        clang-8                    \
-        cmake                      \
-        curl                       \
-        flex                       \
-        gcc                        \
-        git                        \
-        jq                         \
-        libboost-test-dev          \
-        libcrypto++-dev            \
-        libffi-dev                 \
-        libgflags-dev              \
-        libjemalloc-dev            \
-        libmpfr-dev                \
-        libprocps-dev              \
-        libsecp256k1-dev           \
-        libssl-dev                 \
-        libtool                    \
-        libyaml-dev                \
-        lld-8                      \
-        llvm-8-tools               \
-        make                       \
-        maven                      \
-        netcat-openbsd             \
-        openjdk-11-jdk             \
-        pandoc                     \
-        pkg-config                 \
-        python3                    \
-        rapidjson-dev              \
-        software-properties-common \
-        zip                        \
-        zlib1g-dev
+### On Ubuntu
+
+TODO: Get the actual link for the debian package
+
+```
+wget https://www.github.com/runtimeverification/.../firefly_1.0.0_amd64.deb
+sudo apt-get install firefly_1.0.0_amd64.deb
+
+firefly launch <port>
 ```
 
-Install `z3` (>= 4.6.0):
+### On Docker
 
-```sh
-git clone 'https://github.com/z3prover/z3' --branch=z3-4.6.0
-cd z3
-python scripts/mk_make.py
-cd build
-make -j8
-sudo make install
-cd ../..
-rm -rf z3
+```
+docker run -p <port>:8545 --detach runtimeverificationinc:firefly
 ```
 
-Install `solc`:
+Where `<port>` is the port you want to access the client with
 
-```sh
-sudo add-apt-repository ppa:ethereum/ethereum
-sudo apt-get update
-sudo apt-get install --yes solc
+## Set up your repo for Firefly
+
+In the base directory of your project:
+
+```
+firefly compile
+firefly migrate
 ```
 
-Install `nodejs` (>= 10.0.0):
+## Run the tests
 
-```sh
-curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
-sudo apt-get install --yes nodejs
+```
+firefly test
 ```
 
-## Build Firefly
+## Collect and upload coverage information
 
-As part of your CI job, make sure to clone and build Firefly:
+TODO: The token needs to be used here
 
-```sh
-curl --location --output k.tar.gz 'https://github.com/kframework/k/releases/download/v5.0.0-9985955/k-nightly.tar.gz'
-tar --verbose --extract --file k.tar.gz
-export K_RELEASE=$(pwd)/k
-
-git clone https://github.com/kframework/evm-semantics.git
-cd evm-semantics
-git submodule update --init --recursive -- deps/plugin
-make build-web3
-cd ..
+```
+firefly coverage
+firefly upload
 ```
 
-## Run Firefly
+## Close the client
 
-Zip up your compiled Solidity contracts.
-They exist under the `build` directory in this example (where `truffle compile` places them).
-
-```sh
-truffle compile
-zip compiled.zip -r build/
 ```
-
-Launch the Firefly client (we use port 8545 in this example):
-
-```sh
-cd evm-semantics
-./kevm web3-ganache 8545 --shutdownable &
-cd ..
-```
-
-Run the test suite that will talk to the Firefly client (ie. Truffle), saving the output:
-
-```sh
-truffle test &> results.txt
-```
-
-Retrieve the coverage data from Firefly and then close the client:
-
-```sh
-cd evm-semantics
-./kevm web3-send 8545 firefly_getCoverageData &> ../coverage.json
-./kevm web3-send 8545 firefly_shutdown
-cd ..
-```
-
-Upload gathered data to the Firefly server for post-processing:
-
-```sh
-curl -X POST -F access-token="<YOUR_ACCESS_TOKEN>"                                   \
-             -F 'status=pass'                                                        \
-             -F 'file=@report.txt'                                                   \
-             -F 'file2=@coverage.json'                                               \
-             -F 'file3=@compiled.zip' 'https://sandbox.fireflyblockchain.com/report'
+firefly close <port>
 ```
 
 ## View the report
