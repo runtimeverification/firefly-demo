@@ -3,7 +3,7 @@ pipeline {
   agent {
     dockerfile {
       label 'docker'
-      additionalBuildArgs "--build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DOCKERHUB_TAG=${params.DOCKERHUB_TAG}"
+      additionalBuildArgs "--build-arg USER_ID=\$(id -u) --build-arg GROUP_ID=\$(id -g) --build-arg DOCKERHUB_TAG=${params.DOCKERHUB_TAG}"
     }
   }
   options { ansiColor('xterm') }
