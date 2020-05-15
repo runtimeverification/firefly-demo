@@ -1,6 +1,8 @@
 ARG DOCKERHUB_TAG
 FROM runtimeverificationinc/runtimeverification-firefly:${DOCKERHUB_TAG}
 
+USER root:root
+
 RUN    apt-get update             \
     && apt-get upgrade --yes      \
     && apt-get install --yes curl
