@@ -21,3 +21,5 @@ RUN    add-apt-repository ppa:ethereum/ethereum \
 
 USER user:user
 WORKDIR /home/user
+
+ENV LC_ALL=C.UTF-8
