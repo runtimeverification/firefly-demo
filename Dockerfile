@@ -3,9 +3,11 @@ FROM runtimeverificationinc/runtimeverification-firefly:${DOCKERHUB_TAG}
 
 USER root:root
 
-RUN    apt-get update             \
-    && apt-get upgrade --yes      \
-    && apt-get install --yes curl
+RUN    apt-get update                          \
+    && apt-get upgrade --yes                   \
+    && apt-get install --yes                   \
+                    curl                       \
+                    software-properties-common
 
 RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update                                          \
