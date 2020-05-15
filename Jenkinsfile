@@ -1,27 +1,27 @@
 pipeline {
-  agent { dockerfile { label 'docker' } }
+  agent {
+    dockerfile {
+      label 'docker'
+      additionalBuildArgs '--build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)'
+    }
+  }
   options { ansiColor('xterm') }
   stages {
     stage('Init title') {
       when { changeRequest() }
-      steps {
-        script {
-          currentBuild.displayName = "PR ${env.CHANGE_ID}: ${env.CHANGE_TITLE}"
-        }
-      }
+      steps { script { currentBuild.displayName = "PR ${env.CHANGE_ID}: ${env.CHANGE_TITLE}" } }
     }
-    stage('Build and Test') {
-      when { changeRequest() }
-      stages {
-        stage('Checkout Firefly') { steps { dir('firefly') { git url: 'git@github.com:runtimeverification/firefly.git' } } }
-        stage('Build Firefly') {
-          options { timeout(time: 60, unit: 'MINUTES') }
-          steps { sh './firefly-setup.sh' }
-        }
-        stage('Run Firefly') {
-          options { timeout(time: 30, unit: 'MINUTES') }
-          steps { sh './firefly-run.sh' }
-        }
+    stage('Test') {
+      options { timeout(time: 5, unit: 'MINUTES') }
+      steps {
+        sh '''
+          npm install
+          firefly compile
+          firefly launch   -p 8145
+          firefly test
+          firefly coverage -p 8145
+          firefly close    -p 8145
+        '''
       }
     }
   }

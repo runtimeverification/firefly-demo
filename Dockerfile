@@ -1,56 +1,18 @@
-FROM runtimeverificationinc/ubuntu:bionic
+FROM runtimeverificationinc/runtimeverification-firefly:ubuntu-bionic-master
 
-RUN    apt-get update                  \
-    && apt-get upgrade --yes           \
-    && apt-get install --yes           \
-            autoconf                   \
-            bison                      \
-            clang-8                    \
-            cmake                      \
-            curl                       \
-            flex                       \
-            gcc                        \
-            git                        \
-            jq                         \
-            libboost-test-dev          \
-            libcrypto++-dev            \
-            libffi-dev                 \
-            libgflags-dev              \
-            libjemalloc-dev            \
-            libmpfr-dev                \
-            libprocps-dev              \
-            libsecp256k1-dev           \
-            libssl-dev                 \
-            libtool                    \
-            libyaml-dev                \
-            lld-8                      \
-            llvm-8-tools               \
-            make                       \
-            maven                      \
-            netcat-openbsd             \
-            openjdk-11-jdk             \
-            pandoc                     \
-            pkg-config                 \
-            python3                    \
-            rapidjson-dev              \
-            software-properties-common \
-            zip                        \
-            zlib1g-dev
-
-RUN    git clone 'https://github.com/z3prover/z3' --branch=z3-4.6.0 \
-    && cd z3                                                        \
-    && python scripts/mk_make.py                                    \
-    && cd build                                                     \
-    && make -j8                                                     \
-    && make install                                                 \
-    && cd ../..                                                     \
-    && rm -rf z3
+RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get update                                          \
+    && apt-get upgrade --yes                                   \
+    && apt-get install --yes nodejs
 
 RUN    add-apt-repository ppa:ethereum/ethereum \
     && apt-get update                           \
+    && apt-get upgrade --yes                    \
     && apt-get install --yes solc
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install --yes nodejs
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+RUN groupadd -g $GROUP_ID user && useradd -m -u $USER_ID -s /bin/sh -g user user
 
 USER user:user
+WORKDIR /home/user
