@@ -1,5 +1,9 @@
 FROM runtimeverificationinc/runtimeverification-firefly:ubuntu-bionic-master
 
+RUN    apt-get update             \
+    && apt-get upgrade --yes      \
+    && apt-get install --yes curl
+
 RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update                                          \
     && apt-get upgrade --yes                                   \
