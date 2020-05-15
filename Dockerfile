@@ -1,4 +1,5 @@
-FROM runtimeverificationinc/runtimeverification-firefly:ubuntu-bionic-master
+ARG DOCKERHUB_TAG
+FROM runtimeverificationinc/runtimeverification-firefly:${DOCKERHUB_TAG}
 
 RUN    apt-get update             \
     && apt-get upgrade --yes      \
