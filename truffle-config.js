@@ -6,8 +6,6 @@ module.exports = {
             network_id: "*"
         }
     },
-    mocha: {
-    },
     compilers: {
         solc: {
         }

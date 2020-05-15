@@ -1,7 +1,8 @@
-/compiled.zip
-/coverage.json
-/evm-semantics
-/k
-/k.tar.gz
-/openzeppelin-contracts
-/report.txt
+build
+compiled.zip
+coverage_data.zip
+firefly_coverage
+firefly.log
+node_modules
+package-lock.json
+report.txt
