@@ -18,7 +18,7 @@ pipeline {
         sh '''
           npm install
           firefly compile
-          firefly launch   -p 8145 --quiet &
+          firefly launch   -p 8145 --quiet --shutdownable --respond-to-notifications &
           sleep 2
           firefly test
           firefly coverage -p 8145
