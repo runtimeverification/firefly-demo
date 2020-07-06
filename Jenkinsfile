@@ -26,5 +26,16 @@ pipeline {
         '''
       }
     }
+    stage('Update Firefly Submodule') {
+      when { branch 'master' }
+      steps {
+        build job: 'rv-devops/master', propagate: false, wait: false                                     \
+            , parameters: [ booleanParam(name: 'UPDATE_DEPS_SUBMODULE', value: true)                     \
+                          , string(name: 'PR_REVIEWER', value: 'ehildenb')                               \
+                          , string(name: 'UPDATE_DEPS_REPOSITORY', value: 'runtimeverification/firefly') \
+                          , string(name: 'UPDATE_DEPS_SUBMODULE_DIR', value: 'tests/demos/firefly-demo') \
+                          ]
+      }
+    }
   }
 }
