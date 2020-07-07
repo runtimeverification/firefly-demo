@@ -1,11 +1,10 @@
 ARG DOCKERHUB_TAG
 FROM runtimeverificationinc/runtimeverification-firefly:${DOCKERHUB_TAG}
 
-RUN    apt-get update                          \
-    && apt-get upgrade --yes                   \
-    && apt-get install --yes                   \
-                    curl                       \
-                    software-properties-common
+RUN    apt-get update        \
+    && apt-get upgrade --yes \
+    && apt-get install --yes \
+                    curl
 
 RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update                                          \
