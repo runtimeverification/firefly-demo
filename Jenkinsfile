@@ -18,11 +18,23 @@ pipeline {
         sh '''
           npm install
           firefly compile
-          firefly launch   -p 8145
+          firefly launch   -p 8145 --quiet --shutdownable --respond-to-notifications &
+          sleep 2
           firefly test
           firefly coverage -p 8145
           firefly close    -p 8145
         '''
+      }
+    }
+    stage('Update Firefly Submodule') {
+      when { branch 'master' }
+      steps {
+        build job: 'rv-devops/master', propagate: false, wait: false                                     \
+            , parameters: [ booleanParam(name: 'UPDATE_DEPS_SUBMODULE', value: true)                     \
+                          , string(name: 'PR_REVIEWER', value: 'ehildenb')                               \
+                          , string(name: 'UPDATE_DEPS_REPOSITORY', value: 'runtimeverification/firefly') \
+                          , string(name: 'UPDATE_DEPS_SUBMODULE_DIR', value: 'tests/demos/firefly-demo') \
+                          ]
       }
     }
   }
