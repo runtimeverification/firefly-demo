@@ -5,12 +5,13 @@ RUN    apt-get update                          \
     && apt-get upgrade --yes                   \
     && apt-get install --yes                   \
                     curl                       \
+                    git                        \
                     software-properties-common
 
 RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update                                          \
     && apt-get upgrade --yes                                   \
-    && apt-get install --yes nodejs git
+    && apt-get install --yes nodejs
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
