@@ -16,6 +16,7 @@ pipeline {
       options { timeout(time: 5, unit: 'MINUTES') }
       steps {
         sh '''
+          apt-get install git -y
           npm install
           firefly compile
           firefly launch   -p 8145 --quiet --shutdownable --respond-to-notifications &
@@ -30,6 +31,7 @@ pipeline {
       options { timeout(time: 5, unit: 'MINUTES') }
       steps {
         sh '''
+          apt-get install git -y
           npm install
           firefly compile
           firefly launch   -p 8145 --quiet --shutdownable --respond-to-notifications &
