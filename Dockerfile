@@ -10,7 +10,7 @@ RUN    apt-get update                          \
 RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update                                          \
     && apt-get upgrade --yes                                   \
-    && apt-get install --yes nodejs
+    && apt-get install --yes nodejs git
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
