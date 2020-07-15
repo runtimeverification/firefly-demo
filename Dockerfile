@@ -5,6 +5,7 @@ RUN    apt-get update                          \
     && apt-get upgrade --yes                   \
     && apt-get install --yes                   \
                     curl                       \
+                    git                        \
                     software-properties-common
 
 RUN    curl -sL https://deb.nodesource.com/setup_10.x | bash - \

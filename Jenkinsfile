@@ -12,7 +12,7 @@ pipeline {
       when { changeRequest() }
       steps { script { currentBuild.displayName = "PR ${env.CHANGE_ID}: ${env.CHANGE_TITLE}" } }
     }
-    stage('Test') {
+    stage('Test with truffle') {
       options { timeout(time: 5, unit: 'MINUTES') }
       steps {
         sh '''
@@ -20,7 +20,21 @@ pipeline {
           firefly compile
           firefly launch   -p 8145 --quiet --shutdownable --respond-to-notifications &
           sleep 2
-          firefly test
+          npx truffle test
+          firefly coverage -p 8145
+          firefly close    -p 8145
+        '''
+      }
+    }
+    stage('Test with buidler') {
+      options { timeout(time: 5, unit: 'MINUTES') }
+      steps {
+        sh '''
+          npm install
+          firefly compile
+          firefly launch   -p 8145 --quiet --shutdownable --respond-to-notifications &
+          sleep 2
+          npx buidler --network localhost test
           firefly coverage -p 8145
           firefly close    -p 8145
         '''
