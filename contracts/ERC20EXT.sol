@@ -1,7 +1,8 @@
 pragma solidity ^0.5.16;
 import "./ERC20.sol";
+import "./Owned.sol";
 
-contract ERC20EXT is ERC20 {
+contract ERC20EXT is ERC20, Owned {
     constructor(
         string memory name,
         string memory symbol,
@@ -19,5 +20,9 @@ contract ERC20EXT is ERC20 {
     function burn(address account, uint256 amount) public returns (bool) {
         _burn(account, amount);
         return true;
+    }
+
+    function displayName() public view onlyOwner returns (string memory) {
+        return name();
     }
 }
