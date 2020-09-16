@@ -41,13 +41,16 @@ pipeline {
       }
     }
     stage('Update Firefly Submodule') {
-      when { branch 'master' }
+      when {
+        branch 'master'
+        beforeAgent true
+      }
+      environment { LONG_REV = """${sh(returnStdout: true, script: 'git rev-parse HEAD').trim()}""" }
       steps {
-        build job: 'rv-devops/master', propagate: false, wait: false                                     \
-            , parameters: [ booleanParam(name: 'UPDATE_DEPS_SUBMODULE', value: true)                     \
-                          , string(name: 'PR_REVIEWER', value: 'ehildenb')                               \
-                          , string(name: 'UPDATE_DEPS_REPOSITORY', value: 'runtimeverification/firefly') \
-                          , string(name: 'UPDATE_DEPS_SUBMODULE_DIR', value: 'tests/demos/firefly-demo') \
+        build job: 'rv-devops/master', propagate: false, wait: false                                                 \
+            , parameters: [ booleanParam ( name: 'UPDATE_DEPS'         , value: true                               ) \
+                          , string       ( name: 'UPDATE_DEPS_REPO'    , value: 'runtimeverification/firefly-demo' ) \
+                          , string       ( name: 'UPDATE_DEPS_VERSION' , value: "${env.LONG_REV}")                   \
                           ]
       }
     }
