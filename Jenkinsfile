@@ -41,7 +41,10 @@ pipeline {
       }
     }
     stage('Update Firefly Submodule') {
-      when { branch 'master' }
+      when {
+        branch 'master'
+        beforeAgent true
+      }
       environment { LONG_REV = """${sh(returnStdout: true, script: 'git rev-parse HEAD').trim()}""" }
       steps {
         build job: 'rv-devops/master', propagate: false, wait: false                                                 \
