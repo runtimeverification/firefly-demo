@@ -13,4 +13,9 @@ contract('ERC20EXT', accounts => {
         assert.equal(await erc20ext.balanceOf(accounts[1]), 10);
     });
 
+    it("Call owner only functions", async () => {
+        const erc20ext = await ERC20EXT.new("Gold", "GLD", accounts[0], 1000);
+        assert.equal(await erc20ext.displayName(), "Gold");
+    });
+
 });
