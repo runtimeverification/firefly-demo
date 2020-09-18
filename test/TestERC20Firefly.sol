@@ -3,7 +3,7 @@ pragma solidity ^0.5.16;
 import "./firefly/FireflyCheck.sol";
 import "../contracts/ERC20.sol";
 
-contract TestERC20Symbolic is FireflyCheck {
+contract TestERC20Firefly is FireflyCheck {
     function _testTransfer() public {
         address owner = this.firefly_genAddress();
         uint256 initSupply = this.firefly_genUint256();
