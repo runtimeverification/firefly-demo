@@ -6,7 +6,7 @@ import "../contracts/ERC20.sol";
 contract TestERC20Symbolic is FireflyCheck {
     function _testTransfer() public {
         address owner = this.firefly_genAddress();
-        address initSupply = this.firefly_genUint256();
+        uint256 initSupply = this.firefly_genUint256();
 
         ERC20 token = new ERC20("gold", "GLD", owner, initSupply);
 
