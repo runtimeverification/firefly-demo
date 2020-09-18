@@ -25,9 +25,9 @@ contract TestERC20Symbolic is FireflyCheck {
         uint256 balFromAfter = token.balanceOf(from);
         uint256 balToAfter   = token.balanceOf(to);
 
-        this.firefly_assert(balFromAfter <= balFrom);
-        this.firefly_assert(balToAfter >= balTo);
+        assert(balFromAfter <= balFrom);
+        assert(balToAfter >= balTo);
 
-        this.firefly_assert(balFrom - balFromAfter == balToAfter - balTo);
+        assert(balFrom - balFromAfter == balToAfter - balTo);
     }
 }
