@@ -10,8 +10,8 @@ contract TestERC20Symbolic is FireflyCheck {
         // token = (magic happens here)
 
         address from  = address(this);
-        address to    = this.firefly_newSymbolicAddress();
-        uint256 value = this.firefly_newSymbolicUint256();
+        address to    = this.firefly_genAddress();
+        uint256 value = this.firefly_genUint256();
 
         require(from != to);
 
@@ -19,7 +19,7 @@ contract TestERC20Symbolic is FireflyCheck {
         uint256 balTo   = token.balanceOf(to);
         require(value <= balFrom);
 
-        this.firefly_assume(token.transfer(to, value));
+        require(token.transfer(to, value));
 
         uint256 balFromAfter = token.balanceOf(from);
         uint256 balToAfter   = token.balanceOf(to);
