@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity >=0.5.16;
 
 import "./firefly/FireflyCheck.sol";
 import "../contracts/ERC20.sol";
