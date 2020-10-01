@@ -15,8 +15,8 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
         address spender = address(this);
         uint256 value   = this.firefly_genUint256();
 
-        allowance = token.allowance(from, spender);
-        bal = token.balanceOf(to);
+        uint256 allowance = token.allowance(from, spender);
+        uint256 bal = token.balanceOf(to);
         require(from != to);
         require(value <= allowance);
 
@@ -37,8 +37,7 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
         address spender = address(this);
         uint256 value   = this.firefly_genUint256();
 
-        allowance = token.allowance(from, spender);
-        bal = token.balanceOf(to);
+        uint256 allowance = token.allowance(from, spender);
         require(from != to);
         require(value > allowance);
 
@@ -56,8 +55,8 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
         address spender = address(this);
         uint256 value   = this.firefly_genUint256();
 
-        allowance = token.allowance(from, spender);
-        bal = token.balanceOf(to);
+        uint256 allowance = token.allowance(from, spender);
+        uint256 bal = token.balanceOf(to);
         require(value <= allowance);
 
         token.transferFrom(from, to, value);
