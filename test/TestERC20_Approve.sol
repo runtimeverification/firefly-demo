@@ -13,9 +13,9 @@ contract TestERC20Firefly_Approve is FireflyCheck {
         address spender = this.firefly_genAddress();
         uint256 value = this.firefly_genUint256();
 
-        require(token.approve(spender, value));
+        this.firefly_require(token.approve(spender, value));
 
-        assert(token.allowance(address(this), spender) == value);
+        this.firefly_assert(token.allowance(address(this), spender) == value);
     }
 
     function _testApproveOther() public {
@@ -28,13 +28,13 @@ contract TestERC20Firefly_Approve is FireflyCheck {
         uint256 value = this.firefly_genUint256();
 
         address nonCaller = this.firefly_genAddress();
-        require(nonCaller != address(this));
+        this.firefly_require(nonCaller != address(this));
 
         address any = this.firefly_genAddress();
         uint256 otherAllowance = token.allowance(nonCaller, any);
 
-        require(token.approve(spender, value));
+        this.firefly_require(token.approve(spender, value));
 
-        assert(token.allowance(nonCaller, any) == otherAllowance); // Allowance doesn't change
+        this.firefly_assert(token.allowance(nonCaller, any) == otherAllowance); // Allowance doesn't change
     }
 }
