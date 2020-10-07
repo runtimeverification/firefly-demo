@@ -4,12 +4,16 @@ import "./firefly/FireflyCheck.sol";
 import "../contracts/ERC20.sol";
 
 contract TestERC20Firefly_Approve is FireflyCheck {
-    function _testApproveAllowance() public {
+    ERC20 token;
+
+    function beforeEach() public {
         address owner = this.firefly_genAddress();
         uint256 initSupply = this.firefly_genUint256();
 
-        ERC20 token = new ERC20("gold", "GLD", owner, initSupply);
+        token = new ERC20("gold", "GLD", owner, initSupply);
+    }
 
+    function _testApproveAllowance() public {
         address spender = this.firefly_genAddress();
         uint256 value = this.firefly_genUint256();
 
@@ -19,11 +23,6 @@ contract TestERC20Firefly_Approve is FireflyCheck {
     }
 
     function _testApproveOther() public {
-        address owner = this.firefly_genAddress();
-        uint256 initSupply = this.firefly_genUint256();
-
-        ERC20 token = new ERC20("gold", "GLD", owner, initSupply);
-
         address spender = this.firefly_genAddress();
         uint256 value = this.firefly_genUint256();
 
