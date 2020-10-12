@@ -22,15 +22,15 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
         uint256 allowance = token.allowance(from, spender);
         uint256 balFrom = token.balanceOf(from);
         uint256 balTo = token.balanceOf(to);
-        this.firefly_require(from != to);
-        this.firefly_require(value <= allowance);
-        this.firefly_require(balFrom - value <= balFrom || balTo + value >= balTo); // No Overflow
+        require(from != to);
+        require(value <= allowance);
+        require(balFrom - value <= balFrom || balTo + value >= balTo); // No Overflow
 
         try token.transferFrom(from, to, value) {
-            this.firefly_assert(allowance == token.allowance(from, spender) - value);
-            this.firefly_assert(balTo >= token.balanceOf(to));
+            assert(allowance == token.allowance(from, spender) - value);
+            assert(balTo >= token.balanceOf(to));
         } catch {
-            this.firefly_assert(false);
+            assert(false);
         }
     }
 
@@ -43,15 +43,15 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
         uint256 allowance = token.allowance(from, spender);
         uint256 balFrom = token.balanceOf(from);
         uint256 balTo = token.balanceOf(to);
-        this.firefly_require(from != to);
-        this.firefly_require(value <= allowance);
-        this.firefly_require(balFrom - value > balFrom || balTo + value < balTo); // No Overflow
+        require(from != to);
+        require(value <= allowance);
+        require(balFrom - value > balFrom || balTo + value < balTo); // No Overflow
 
         try token.transferFrom(from, to, value) {
-            this.firefly_assert(false);
+            assert(false);
         } catch {
-            this.firefly_assert(allowance == token.allowance(from, spender));
-            this.firefly_assert(balTo == token.balanceOf(to));
+            assert(allowance == token.allowance(from, spender));
+            assert(balTo == token.balanceOf(to));
         }
     }
 
@@ -62,13 +62,13 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
         uint256 value   = this.firefly_genUint256();
 
         uint256 allowance = token.allowance(from, spender);
-        this.firefly_require(from != to);
-        this.firefly_require(value > allowance);
+        require(from != to);
+        require(value > allowance);
 
         try token.transferFrom(from, to, value) {
-            this.firefly_assert(false);
+            assert(false);
         } catch {
-            this.firefly_assert(true);
+            assert(true);
         }
     }
 
@@ -80,13 +80,13 @@ contract TestERC20Firefly_TransferFrom is FireflyCheck {
 
         uint256 allowance = token.allowance(from, spender);
         uint256 bal = token.balanceOf(to);
-        this.firefly_require(value <= allowance);
+        require(value <= allowance);
 
         try token.transferFrom(from, to, value) {
-            this.firefly_assert(allowance == token.allowance(from, spender) - value);
-            this.firefly_assert(bal == token.balanceOf(to));
+            assert(allowance == token.allowance(from, spender) - value);
+            assert(bal == token.balanceOf(to));
         } catch {
-            this.firefly_assert(false);
+            assert(false);
         }
     }
 }

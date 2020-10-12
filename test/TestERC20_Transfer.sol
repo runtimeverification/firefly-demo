@@ -18,20 +18,20 @@ contract TestERC20Firefly_Transfer is FireflyCheck {
         address to    = this.firefly_genAddress();
         uint256 value = this.firefly_genUint256();
 
-        this.firefly_require(from != to);
+        require(from != to);
 
         uint256 balFrom = token.balanceOf(from);
         uint256 balTo   = token.balanceOf(to);
-        this.firefly_require(balFrom - value <= balFrom || balTo + value >= balTo); // No overflows
+        require(balFrom - value <= balFrom || balTo + value >= balTo); // No overflows
 
         try token.transfer(to, value) {
             uint256 balFromAfter = token.balanceOf(from);
             uint256 balToAfter   = token.balanceOf(to);
 
-            this.firefly_assert(balFrom    - balFromAfter == value);
-            this.firefly_assert(balToAfter - balTo        == value);
+            assert(balFrom    - balFromAfter == value);
+            assert(balToAfter - balTo        == value);
         } catch {
-            this.firefly_assert(false);
+            assert(false);
         }
     }
 
@@ -40,20 +40,20 @@ contract TestERC20Firefly_Transfer is FireflyCheck {
         address to    = this.firefly_genAddress();
         uint256 value = this.firefly_genUint256();
 
-        this.firefly_require(from != to);
+        require(from != to);
 
         uint256 balFrom = token.balanceOf(from);
         uint256 balTo   = token.balanceOf(to);
-        this.firefly_require(balFrom - value > balFrom || balTo + value < balTo); // Overflows
+        require(balFrom - value > balFrom || balTo + value < balTo); // Overflows
 
         try token.transfer(to, value) {
-            this.firefly_assert(false);
+            assert(false);
         } catch {
             uint256 balFromAfter = token.balanceOf(from);
             uint256 balToAfter   = token.balanceOf(to);
 
-            this.firefly_assert(balFrom    == balFromAfter);
-            this.firefly_assert(balToAfter == balTo       );
+            assert(balFrom    == balFromAfter);
+            assert(balToAfter == balTo       );
         }
     }
 
@@ -63,13 +63,13 @@ contract TestERC20Firefly_Transfer is FireflyCheck {
         uint256 value = this.firefly_genUint256();
 
         uint256 bal = token.balanceOf(from);
-        this.firefly_require(value <= bal);
+        require(value <= bal);
 
         try token.transfer(to, value) {
             uint256 balAfter = token.balanceOf(from);
-            this.firefly_assert(balAfter == bal);
+            assert(balAfter == bal);
         } catch {
-            this.firefly_assert(false);
+            assert(false);
         }
     }
 
@@ -78,15 +78,15 @@ contract TestERC20Firefly_Transfer is FireflyCheck {
         address to    = this.firefly_genAddress();
         uint256 value = this.firefly_genUint256();
 
-        this.firefly_require(from != to);
+        require(from != to);
 
         uint256 balFrom = token.balanceOf(from);
-        this.firefly_require(value > balFrom);
+        require(value > balFrom);
 
         try token.transfer(to, value) {
-            this.firefly_assert(false);
+            assert(false);
         } catch {
-            this.firefly_assert(true);
+            assert(true);
         }
     }
 }
