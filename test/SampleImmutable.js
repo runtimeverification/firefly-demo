@@ -2,7 +2,7 @@ const SampleImutable = artifacts.require('SampleImmutable');
 
 contract('Sample Immutable', accounts => {
     it("Should deploy and retrieve the same value", async () => {
-        const value = 7;
+        const value = Number.MAX_SAFE_INTEGER - 1;
         const sample = await SampleImutable.new(value);
         assert.equal(await sample.getImmutable(), value);
     });
@@ -15,7 +15,7 @@ contract('Sample Immutable', accounts => {
     });
 
     it("Should run storeAtImmutable correctly", async () => {
-        const value = 11;
+        const value = 16161;
         const sample = await SampleImutable.new(value);
         assert.equal(await sample.readAtImmutable(), 0, "Initial read failed");
         await sample.storeAtImmutable(25);
