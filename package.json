@@ -1,24 +1,24 @@
 {
-  "name": "Firefly Demo",
+  "name": "firefly-demo",
   "version": "1.0.0",
-  "description": "Solidity demo contracts",
+  "description": "Solidity smart contract examples",
+  "main": "truffle-config.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "@openzeppelin/test-helpers": "^0.5.15",
-    "ganache": "^6.4.5",
-    "truffle": "^5.4.22"
+    "ganache-cli": "^6.12.2",
+    "truffle": "^5.4.22",
+    "@openzeppelin/test-helpers": "^0.5.15"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/runtimeverification/firefly-demo.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
