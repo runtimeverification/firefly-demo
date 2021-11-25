@@ -1,10 +1,4 @@
 build
-compiled.zip
-coverage_data.zip
-firefly_coverage
-firefly.log
 node_modules
 package-lock.json
-report.txt
-artifacts
-cache
+.vscode

@@ -1,21 +1,28 @@
 {
-  "name": "HelloWorld",
+  "name": "Firefly Demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Solidity demo contracts",
   "directories": {
     "test": "test"
   },
+  "dependencies": {
+    "@openzeppelin/test-helpers": "^0.5.15",
+    "ganache": "^6.4.5",
+    "truffle": "^5.4.22"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/runtimeverification/firefly-demo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@nomiclabs/buidler": "^1.3.8",
-    "@nomiclabs/buidler-truffle5": "^1.3.4",
-    "@nomiclabs/buidler-web3": "^1.3.4",
-    "truffle": "<= 5.1.65",
-    "web3": "^1.2.9"
-  }
+  "bugs": {
+    "url": "https://github.com/runtimeverification/firefly-demo/issues"
+  },
+  "homepage": "https://github.com/runtimeverification/firefly-demo#readme"
 }
