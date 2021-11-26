@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: Just something to remove the warning
-
 const ERC20 = artifacts.require('ERC20');
 
 contract('ERC20', accounts => {

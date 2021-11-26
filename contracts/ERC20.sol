@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Just something to remove the warning
+
 pragma solidity >=0.6.0;
 
 contract ERC20 {
@@ -77,13 +79,15 @@ contract ERC20 {
 
     function _mint(address account, uint256 amount) internal {
         require(account != address(0), "ERC20: mint to the zero address");
+        require(_totalSupply <= _totalSupply + amount);//check overflow on totalSupply
         _totalSupply = _totalSupply + amount;
-        _balances[account] = _balances[account] + amount;//check overflow on totalSupply
+        _balances[account] = _balances[account] + amount;
     }
 
     function _burn(address account, uint256 amount) internal {
         require(account != address(0), "ERC20: burn from the zero address");
+        require(_balances[account] >= _balances[account] - amount);//check underflow on balances
         _totalSupply = _totalSupply - amount;
-        _balances[account] = _balances[account] - amount;//check underflow on balances
+        _balances[account] = _balances[account] - amount;
     }
 }
