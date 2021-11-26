@@ -31,7 +31,7 @@ contract ERC20EXT is ERC20 {
     function withdraw(uint256 amountERC20EXTINT ) external {
         uint256 amountERC20EXT = amountERC20EXTINT * (10 ** decimals());
         _burn(msg.sender, amountERC20EXT);
-        uint256 transferAmount = ((10 ** _otherContract.decimals()) * amountERC20EXT )/ price();
+        uint256 transferAmount = amountERC20EXT / price();
         _otherContract.transfer(msg.sender, transferAmount);
     }
 }
