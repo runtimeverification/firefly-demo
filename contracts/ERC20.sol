@@ -27,7 +27,7 @@ contract ERC20 {
 
     function name()        public view returns (string memory) { return _name;        }
     function symbol()      public view returns (string memory) { return _symbol;      }
-    function decimals()    public view returns (uint256)   { return _decimals;          }
+    function decimals()    public view returns (uint8)   { return _decimals;          }
     function totalSupply() public view returns (uint256) { return _totalSupply; }
 
     function balanceOf(address account) external view returns (uint256) {

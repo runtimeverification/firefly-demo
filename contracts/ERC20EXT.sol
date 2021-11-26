@@ -1,9 +1,5 @@
-// SPDX-License-Identifier: Just something to remove the warning
-
 pragma solidity >=0.6.0;
 import "./ERC20.sol";
-
-
 
 contract ERC20EXT is ERC20 {
     // Prices how much ERC20EXT you get for one ERC20
@@ -23,12 +19,12 @@ contract ERC20EXT is ERC20 {
         _price = price;
     }
 
-    function price() public view returns (uint256) { return _price; }
+    function price() public view returns (uint256) { return _price / (10 ** _otherContract.decimals()); }
 
     function deposit(uint256 amountERC20INT) external {
         uint256 amountERC20 = amountERC20INT * (10 ** _otherContract.decimals());
         _otherContract.transferFrom(msg.sender, address(this), amountERC20);
-        uint256 mintAmount = (amountERC20 * price())/ (10 ** _otherContract.decimals());
+        uint256 mintAmount = (amountERC20 * price());
         _mint(msg.sender, mintAmount);
     }
 
