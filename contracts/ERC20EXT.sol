@@ -2,7 +2,7 @@ pragma solidity >=0.6.0;
 import "./ERC20.sol";
 
 contract ERC20EXT is ERC20 {
-    // Prices how much ERC20EXT you get for one ERC20
+    // Prices how much scaled ERC20EXT you get for one unscaled ERC20
     uint256 private _price;
     ERC20 private _otherContract;
 
@@ -29,9 +29,9 @@ contract ERC20EXT is ERC20 {
     }
 
     function withdraw(uint256 amountERC20EXTINT ) external {
-        _burn(msg.sender, (10 ** decimals()) * amountERC20EXTINT);
-        uint256 amountERC20EXT = amountERC20EXTINT * (10 ** _otherContract.decimals());
-        uint256 transferAmount = ((10 ** decimals()) * amountERC20EXT )/ price();
+        uint256 amountERC20EXT = amountERC20EXTINT * (10 ** decimals());
+        _burn(msg.sender, amountERC20EXT);
+        uint256 transferAmount = ((10 ** _otherContract.decimals()) * amountERC20EXT )/ price();
         _otherContract.transfer(msg.sender, transferAmount);
     }
 }
