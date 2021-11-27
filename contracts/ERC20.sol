@@ -61,6 +61,7 @@ contract ERC20 {
     function _transfer(address from, address to, uint256 amount) internal {
         require(from != address(0), "ERC20: transfer from the zero address");
         require(to != address(0), "ERC20: transfer to the zero address");
+        require( from != to, "ERC20: Cannot send to the same account?");
         uint256 toBalance   = _balances[to];
         uint256 fromBalance = _balances[from];
         require(fromBalance >= amount, "ERC20: transfer amount exceeds balance");

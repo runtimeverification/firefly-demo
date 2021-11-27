@@ -19,19 +19,19 @@ contract ERC20EXT is ERC20 {
         _price = price;
     }
 
-    function price() public view returns (uint256) { return _price / (10 ** _otherContract.decimals()); }
+    function price() public view returns (uint256) { return _price; }
 
     function deposit(uint256 amountERC20INT) external {
         uint256 amountERC20 = amountERC20INT * (10 ** _otherContract.decimals());
         _otherContract.transferFrom(msg.sender, address(this), amountERC20);
-        uint256 mintAmount = (amountERC20 * price());
+        uint256 mintAmount = (amountERC20 * price()) /(10 ** _otherContract.decimals());
         _mint(msg.sender, mintAmount);
     }
 
     function withdraw(uint256 amountERC20EXTINT ) external {
         uint256 amountERC20EXT = amountERC20EXTINT * (10 ** decimals());
         _burn(msg.sender, amountERC20EXT);
-        uint256 transferAmount = amountERC20EXT / price();
+        uint256 transferAmount = ((10 ** _otherContract.decimals()) * amountERC20EXT) / price();
         _otherContract.transfer(msg.sender, transferAmount);
     }
 }
