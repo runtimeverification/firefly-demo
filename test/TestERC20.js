@@ -19,4 +19,12 @@ contract('ERC20', accounts => {
         assert.equal(await erc20.totalSupply(), 1000);
     });
 
+    it("Correctly increase and decrease the allowance", async () => {
+        const erc20 = await ERC20.new("Gold", "GLD", accounts[0], 1000);
+        assert.equal(await erc20.allowance(accounts[0], accounts[1]), 0);
+        await erc20.increaseAllowance(accounts[1], 200);
+        assert.equal(await erc20.allowance(accounts[0], accounts[1]), 200);
+        await erc20.decreaseAllowance(accounts[1], 100);
+        assert.equal(await erc20.allowance(accounts[0], accounts[1]), 100);
+    })
 });

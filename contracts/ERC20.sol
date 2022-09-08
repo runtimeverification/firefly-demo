@@ -40,6 +40,10 @@ contract ERC20 {
         return true;
     }
 
+    function getAllowanceOf(address spender) public returns (uint) {
+        return _allowances[msg.sender][spender];
+    }
+
     function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
         _approve(msg.sender, spender, _allowances[msg.sender][spender] + addedValue);
         return true;
